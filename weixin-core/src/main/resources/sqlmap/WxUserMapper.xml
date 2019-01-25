@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zbjdl.common.wx.repository.WxUserRepository">
+
+	<resultMap type="WxUser" id="wxUserMap">
+		<id property="id" column="ID" />
+		<id property="version" column="VERSION" />
+		<id property="openId" column="OPENID" />
+		<id property="photoUrl" column="PHOTO_URL" />
+		<id property="nickName" column="NICK_NAME" />
+		<id property="articleShareCount" column="ARTICLE_SHARE_COUNT" />
+		<id property="channel" column="CHANNEL" />
+	</resultMap>
+
+	<insert id="save" parameterType="WxUser" keyProperty="id"
+		useGeneratedKeys="true">
+		INSERT INTO WX_USER
+
+		(
+		VERSION,
+		OPENID,
+		PHOTO_URL,
+		NICK_NAME,
+		ARTICLE_SHARE_COUNT,
+		CHANNEL
+		) VALUES (
+		#{version},
+		#{openId,jdbcType=VARCHAR},
+		#{photoUrl,jdbcType=VARCHAR},
+		#{nickName,jdbcType=VARCHAR},
+		#{articleShareCount},
+		#{channel,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="batchSave" parameterType="java.util.List">
+		INSERT INTO WX_USER
+
+		(
+		VERSION,
+		OPENID,
+		PHOTO_URL,
+		NICK_NAME,
+		ARTICLE_SHARE_COUNT,
+		CREATED_TIME,
+		CHANNEL
+		) VALUES (
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{version},
+			#{openId,jdbcType=VARCHAR},
+			#{photoUrl,jdbcType=VARCHAR},
+			#{nickName,jdbcType=VARCHAR},
+			#{articleShareCount},
+			#{channel,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<select id="selectList" parameterType="String" resultMap="wxUserMap">
+		SELECT * FROM WX_USER
+		WHERE OPENID =#{openId,jdbcType=VARCHAR}
+	</select>
+
+	<sql id="Example_Set_Clause">
+		<set>
+			<trim suffixOverrides=",">
+				<if test="openId != null">
+					OPENID = #{openId,jdbcType=VARCHAR},
+				</if>
+				<if test="nickName != null">
+					NICK_NAME = #{nickName,jdbcType=VARCHAR},
+				</if>
+				<if test="photoUrl != null">
+					PHOTO_URL = #{photoUrl,jdbcType=VARCHAR},
+				</if>
+				<if test="articleShareCount != null">
+					ARTICLE_SHARE_COUNT = #{articleShareCount,jdbcType=DECIMAL},
+				</if>
+				<if test="channel != null">
+					CHANNEL = #{channel,jdbcType=VARCHAR},
+				</if>
+				VERSION = VERSION + 1
+			</trim>
+		</set>
+	</sql>
+	<update id="update" parameterType="WxUser">
+		update WX_USER
+		<include refid="Example_Set_Clause" />
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+</mapper>

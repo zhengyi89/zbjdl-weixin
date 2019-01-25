@@ -1,0 +1,34 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.zbjdl.common.weixin</groupId>
+		<artifactId>weixin-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.zbjdl.common.weixin</groupId>
+	<artifactId>weixin-api</artifactId>
+	<packaging>jar</packaging>
+	<name>weixin :: api</name>
+	<url></url>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.zbjdl.common</groupId>
+			<artifactId>zbjdl-common-utils</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>com.zbjdl.utils</groupId>
+			<artifactId>zbjdl-config</artifactId>
+		</dependency>
+
+<!-- 		<dependency>
+            <groupId>com.zbjdl.merchant</groupId>
+			<artifactId>mchservice-utils</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency> -->
+
+	</dependencies>
+
+</project>

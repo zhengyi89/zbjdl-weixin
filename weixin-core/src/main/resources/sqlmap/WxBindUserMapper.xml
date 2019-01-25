@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zbjdl.common.wx.repository.WxBindUserRepository">
+
+	<resultMap type="WxBindUser" id="wxBindUserMap">
+		<id property="id" column="ID" />
+		<id property="openId" column="OPENID" />
+		<id property="userId" column="USER_ID" />
+		<id property="loginName" column="LOGIN_NAME" />
+		<id property="systemCode" column="SYSTEM_CODE" />
+		<id property="createdDate" column="CREATED_DATE" />
+	</resultMap>
+
+	<insert id="save" parameterType="WxBindUser" keyProperty="id"
+		useGeneratedKeys="true">
+		INSERT INTO WX_BIND_USER
+
+		(
+		OPENID,
+		USER_ID,
+		LOGIN_NAME,
+		SYSTEM_CODE
+		) VALUES (
+		#{openId,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR},
+		#{loginName,jdbcType=VARCHAR},
+		#{systemCode,jdbcType=VARCHAR}
+		)
+	</insert>
+
+
+	<select id="queryBindUser" parameterType="java.util.Map" resultMap="wxBindUserMap">
+		SELECT * FROM WX_BIND_USER
+		WHERE OPENID =#{openId,jdbcType=VARCHAR} and USER_ID = #{userId,jdbcType=VARCHAR} and SYSTEM_CODE = #{systemCode,jdbcType=VARCHAR} 
+		
+	</select>
+	<select id="queryBindUserByUserId" parameterType="java.util.Map" resultMap="wxBindUserMap">
+		SELECT * FROM WX_BIND_USER
+		WHERE  USER_ID = #{userId,jdbcType=VARCHAR} and SYSTEM_CODE = #{systemCode,jdbcType=VARCHAR} 
+		
+	</select>
+    <select id="queryBindUserByOpenId" parameterType="java.util.Map" resultMap="wxBindUserMap">
+        SELECT * FROM WX_BIND_USER
+        WHERE  OPENID = #{openId,jdbcType=VARCHAR} and SYSTEM_CODE = #{systemCode,jdbcType=VARCHAR} 
+    </select>
+	<sql id="Example_Set_Clause">
+		<set>
+			<trim suffixOverrides=",">
+				<if test="openId != null">
+					OPENID = #{openId,jdbcType=VARCHAR},
+				</if>
+				<if test="userId != null">
+					NICK_NAME = #{userId,jdbcType=VARCHAR},
+				</if>
+				<if test="loginName != null">
+					LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+				</if>
+				<if test="systemCode != null">
+					SYSTEM_CODE = #{systemCode,jdbcType=VARCHAR},
+				</if>
+			</trim>
+		</set>
+	</sql>
+	<update id="update" parameterType="WxBindUser">
+		update WX_BIND_USER
+		<include refid="Example_Set_Clause" />
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+    <select id="deleteBindUser" parameterType="java.util.Map" >
+        DELETE FROM WX_BIND_USER
+        WHERE OPENID =#{openId,jdbcType=VARCHAR} and USER_ID = #{userId,jdbcType=VARCHAR} and SYSTEM_CODE = #{systemCode,jdbcType=VARCHAR} 
+        
+    </select>
+	
+	<select id="queryBindUserByLoginName" parameterType="java.util.Map" resultMap="wxBindUserMap">
+		SELECT * FROM WX_BIND_USER
+		WHERE  LOGIN_NAME = #{loginName,jdbcType=VARCHAR} and SYSTEM_CODE = #{systemCode,jdbcType=VARCHAR} 
+		
+	</select>
+</mapper>

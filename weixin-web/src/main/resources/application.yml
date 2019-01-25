@@ -1,0 +1,55 @@
+spring:
+    profiles:
+        active: default
+    datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://mysqldb.zbjdl.in:3306/zbjdl_utility?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+        username: root
+        password: wK=QwJmR<592
+        validation-query: select 1 from dual
+        test-on-borrow: true
+# REDIS (RedisProperties)
+    redis:
+        host: redis.zbjdl.in
+        port: 6378
+        pool:
+            max-active: -1
+            max-idle: 8
+            min-idle: 8
+mybatis:
+    config: classpath:mybatis-config.xml
+
+server:
+    contextPath: /weixin-web
+    port: 9025
+
+
+service-group: zbjdl-service-group
+service-version: 1.0.0
+zbjdl:
+    dubbo:
+        app: account-web
+        registry_address: registry.zbjdl.in:2181
+
+
+
+dubbo:
+    service-group: zbjdl-service-group
+    service-version: 1.0.0
+
+---
+
+spring:
+    profiles: development
+
+server:
+    port: 8081
+
+---
+
+spring:
+    profiles: production
+
+
+server:
+    port: 8082

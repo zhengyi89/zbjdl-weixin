@@ -1,0 +1,53 @@
+spring:
+    profiles:
+        active: development
+# REDIS (RedisProperties)
+    redis:
+        host: redis.yunpal.in
+        port: 6379
+        pool:
+            max-idle: 300 # pool settings ...
+            max-active: 600
+            max-wait: 1000
+    datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.120.206/trading?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+        username: root
+        password: mysql
+        validation-query: select 1 from dual
+        test-on-borrow: true
+
+
+mybatis:
+    config: classpath:mybatis-config.xml
+
+server:
+    contextPath: /weixin-web
+    port: 9025
+
+
+hengbao:
+    dubbo:
+        app: weixin-web
+        registry_address: 192.168.120.219:2181
+
+dubbo:
+    service-group: hengbao-service-group
+    service-version: 1.0.0
+
+---
+
+spring:
+    profiles: development
+
+server:
+    port: 8081
+
+---
+
+spring:
+    profiles: production
+
+
+server:
+    port: 8082
