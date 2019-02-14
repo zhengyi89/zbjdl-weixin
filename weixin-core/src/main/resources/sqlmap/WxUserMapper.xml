@@ -57,7 +57,7 @@
 		</foreach>
 	</insert>
 
-	<select id="selectList" parameterType="String" resultMap="wxUserMap">
+	<select id="findList" parameterType="String" resultMap="wxUserMap">
 		SELECT * FROM WX_USER
 		WHERE OPENID =#{openId,jdbcType=VARCHAR}
 	</select>
